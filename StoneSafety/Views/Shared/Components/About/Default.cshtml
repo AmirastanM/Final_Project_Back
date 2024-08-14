@@ -1,0 +1,84 @@
+﻿@model AboutVMVC
+
+
+<section id="banner__wrapper">
+    <div class="banner page banner__home">
+        <div class="banner__bg" style="background-image: url(~/assets/images/@Model.Image);"></div>
+        <div class="container">
+            <div class="row">
+                <div class="banner__inner">
+                    <div class="banner__title">STONE SAFETY</div>
+                    <h1 class="banner__title-h1">Haqqımızda</h1>
+                </div>
+            </div>
+        </div>
+        <div class="banner__skewed-bar"></div>
+    </div>
+</section>
+<main class="main about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="main__about-right">
+                    <h2>Məhsullar Haqqında</h2>
+                    <p>
+                        <span>
+                            <li>@ViewBag.settings["IGTitel"]
+                        </span> <br />@ViewBag.settings["IGDesc"]
+                    </p>
+                    <ul>
+                        <li>@ViewBag.settings["İG1"]</li>
+                        <li>@ViewBag.settings["İG2"]</li>
+                        <li>@ViewBag.settings["İG3"]</li>
+                        <li>@ViewBag.settings["İG4"]</li>
+                        <li>@ViewBag.settings["İG5"]</li>
+                        <li>@ViewBag.settings["İG6"]</li>
+                        <li>@ViewBag.settings["İG7"]</li>
+                        <li>@ViewBag.settings["İG8"]</li>
+                        <li>@ViewBag.settings["İG9"]</li>
+                    </ul>
+                    <p>
+                        <span>@ViewBag.settings["FQVTitel"]</span> <br />@ViewBag.settings["FQVDesc"]
+                    </p>
+                    <ul>
+                        <li>@ViewBag.settings["FQV1"]</li>
+                        <li>@ViewBag.settings["FQV2"]</li>
+                        <li>@ViewBag.settings["FQV3"]</li>
+                        <li>@ViewBag.settings["FQV4"]</li>
+                        <li>@ViewBag.settings["FQV5"]</li>
+                        <li>@ViewBag.settings["FQV6"]</li>
+
+                    </ul>
+                    <p>
+                        <span>@ViewBag.settings["XİATitel"]</span> <br />@ViewBag.settings["XİADesc"] 
+                    </p>
+                    <ul>
+                        <li>@ViewBag.settings["XİA1"]</li>
+                        <li>@ViewBag.settings["XİA2"]</li>
+                        <li>@ViewBag.settings["XİA3"]</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="main__about-left">
+                    <h2>@ViewBag.settings["CompanyName"]</h2>
+                    <p>
+                        @Model.Title
+                    </p>
+                    <ul>
+                        <li>@ViewBag.settings["OurService1"]</li>
+                        <li>@ViewBag.settings["OurService2"]</li>
+                        <li>@ViewBag.settings["OurService3"]</li>
+                        <li>@ViewBag.settings["OurService4"]</li>
+                        <li>@ViewBag.settings["OurService5"]</li>
+                        <li>@ViewBag.settings["OurService6"]</li>
+                        <li>və s.</li>
+                    </ul>
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

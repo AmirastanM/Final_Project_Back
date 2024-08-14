@@ -1,0 +1,116 @@
+﻿@model ContactCreateVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section id="banner__wrapper">
+    <div class="banner page banner__home">
+        <div class="banner__bg" style="background-image: url(~/assets/images/banniere.jpg);"></div>
+        <div class="container">
+            <div class="row">
+                <div class="banner__inner">
+                    <div class="banner__title">STONE SAFETY</div>
+                    <h1 class="banner__title-h1">Bizimlə Əlaqə</h1>
+                </div>
+            </div>
+        </div>
+        <div class="banner__skewed-bar"></div>
+    </div>
+</section>
+<main class="main contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="main__about-left">
+                    <h2>Bİzə Yazın!</h2>
+                    <div class="cotnact__form">
+                        <form method="post" asp-action="Create">
+                            <div class="two">
+                                <input asp-for="Name" class="form-control" id="name" placeholder="Adınız...">
+                                <input asp-for="SurName" class="form-control" id="surname" placeholder="Soyadınız...">
+                                <label for="name">Your Name</label>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="two">
+                                <div class="input__inner">
+                                    <input asp-for="Email" type="text" class="form-control" id="email" placeholder="Sizin Email">
+                                    <label for="email">Your Email</label>
+                                    <span asp-validation-for="Email" class="text-danger"></span>                                    
+                                </div>
+                                <div class="input__inner">
+                                    <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="+994 5. ... .. ..">
+                                <label for="email">Your Email</label>
+                                <span asp-validation-for="Email" class="text-danger"></span>                                   
+                                </div>
+                            </div>
+                            <div class="two">
+                                <div class="input__inner">
+                                    <input asp-for="Subject" class="form-control" id="subject" placeholder="Başlıq...">
+                                    <label for="subject">Subject</label>
+                                    <span asp-validation-for="Subject" class="text-danger"></span>
+                                    <input type="text" placeholder="Başlıq...">
+                                </div>
+                            </div>
+                            <div class="input__inner">
+                                <textarea asp-for="Message" class="form-control" placeholder="Təkliflər, Məhsullar, Sifarişlər, Əlavə Məlumat..." id="message" style="height: 150px"></textarea>
+                                <label for="message">Message</label>
+                                <span asp-validation-for="Message" class="text-danger"></span>                               
+                            </div>
+                            <div class="button__inner"><button class="btn__vk" type="submit">Göndər</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="main__about-right">
+                    <h2>Əlaqə Məlumatı</h2>
+                    <div class="ms-3">
+                        <h5 class="text">Email:</h5>
+                        <p class="mb-0">@ViewBag["Email"]</p>
+                    </div>
+                    <div class="ms-3">
+                        <h5 class="text">Telefon:</h5>
+                        <p class="mb-0">@ViewBag["Phone"]</p>
+                        <p class="mb-0">@ViewBag["Phone1"]</p>
+                    </div>  <div class="ms-3">
+                        <h5 class="text">Ünvan:</h5>
+                        <p class="mb-0">@ViewBag.setting["Location"]</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+<section id="map">
+    <div class="" id="map">
+        <script>
+
+            var lat = 40.424694;
+            var lon = 49.878833;
+
+            map = L.map('map', {
+                scrollWheelZoom: false
+            }).setView([lat, lon], 13);
+
+            var myIcon = L.icon({
+                iconUrl: '/assets/images/rsz_ss_logo_crop.png',
+                iconAnchor: [40, 40],
+            });
+
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                maxZoom: 18,
+            }).addTo(map);
+
+
+            marker = L.marker([lat, lon], {
+                icon: myIcon
+            }).addTo(map);
+
+
+            marker.bindPopup("<b>Stone Safety</b><br/>EUROHOME T.M, birinci sıra <br/>(dəmir yolu sırası), Mağaza 13-3").openPopup();
+        </script>
+    </div>
+</section>
