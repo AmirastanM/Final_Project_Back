@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StoneSafety.Data;
 using StoneSafety.Models;
+using StoneSafety.Services;
+using StoneSafety.Services.Interfaces;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,7 +35,7 @@ builder.Services.Configure<IdentityOptions>(opt =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-//builder.Services.AddScoped<IAboutService, AboutService>();
+builder.Services.AddScoped<IAboutService, AboutService>();
 //builder.Services.AddScoped<ICategoryService, CategoryService>();
 //builder.Services.AddScoped<IInstructorService, InstructorService>();
 //builder.Services.AddScoped<ISocialService, SocialService>();

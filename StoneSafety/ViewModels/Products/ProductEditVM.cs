@@ -18,6 +18,7 @@ namespace StoneSafety.ViewModels.Products
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
         public decimal Price { get; set; }
+        public int Rating { get; set; }
 
         public string CurrentImage { get; set; }
         public IFormFile NewImage { get; set; } 

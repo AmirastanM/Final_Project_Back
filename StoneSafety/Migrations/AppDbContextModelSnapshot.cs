@@ -361,6 +361,9 @@ namespace StoneSafety.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
                     b.Property<bool>("SoftDeleted")
                         .HasColumnType("bit");
 

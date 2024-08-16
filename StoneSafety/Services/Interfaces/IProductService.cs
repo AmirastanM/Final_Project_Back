@@ -20,6 +20,6 @@ namespace StoneSafety.Services.Interfaces
         Task<int> GetCountAsync();
         Task<bool> ExistAsync(string name);
         Task DeleteProductImageAsync(MainAndDeleteImageVM data);
-        Task SetMainImageAsync(MainAndDeleteImageVM data);
+        Task SetMainImageAsync(ProductVM data);
     }
 }

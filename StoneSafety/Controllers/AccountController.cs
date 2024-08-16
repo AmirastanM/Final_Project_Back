@@ -5,8 +5,6 @@ using StoneSafety.Helpers.Extensions;
 using StoneSafety.Models;
 using StoneSafety.Services.Interfaces;
 using StoneSafety.ViewModels.Accounts;
-using StoneSafety.Models;
-using StoneSafety.ViewModels.Accounts;
 using System.Data;
 
 namespace MVC_Mini_Project.Controllers

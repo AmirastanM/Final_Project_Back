@@ -12,6 +12,7 @@ namespace StoneSafety.Models
         public decimal Price { get; set; }
         [Required] 
         public string ProductCode { get; set; }
+        public int Rating { get; set; }
 
         public int? SubSubCategoryId { get; set; }
         public SubSubCategory SubSubCategory { get; set; }
