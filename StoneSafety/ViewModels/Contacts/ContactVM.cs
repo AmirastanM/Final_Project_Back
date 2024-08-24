@@ -10,5 +10,11 @@ namespace StoneSafety.ViewModels.Contacts
         public string Email { get; set; }    
         public string Subject { get; set; }  
         public string Message { get; set; }
+
+
+        public string ContactEmail { get; set; }
+        public string Phone { get; set; }
+        public string Phone1 { get; set; }
+        public string Location { get; set; }
     }
 }

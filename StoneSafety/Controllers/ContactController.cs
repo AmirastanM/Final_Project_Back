@@ -23,24 +23,34 @@ namespace StoneSafety.Controllers
                 _userManager = userManager;
             }
 
-            public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
+        {
+         
+            var settings = await _settingService.GetAllAsync();
+
+          
+            ViewBag.Email = settings.ContainsKey("Email") ? settings["Email"] : string.Empty;
+            ViewBag.Phone = settings.ContainsKey("Phone") ? settings["Phone"] : string.Empty;
+            ViewBag.Phone1 = settings.ContainsKey("Phone1") ? settings["Phone1"] : string.Empty;
+            ViewBag.Location = settings.ContainsKey("Location") ? settings["Location"] : string.Empty;
+
+           
+            var response = new ContactCreateVM();
+
+           
+            if (User.Identity.IsAuthenticated)
             {
-
-                ViewBag.settings = await _settingService.GetAllAsync();
-                var response = new ContactCreateVM();
-
-
-                if (User.Identity.IsAuthenticated)
-                {
-                    var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-                    response.Email = user.Email;
-                }
-
-                return View(response);
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                response.Email = user.Email;
             }
 
-            [HttpPost]
+         
+            return View(response);
+        }
+
+
+
+        [HttpPost]
             [ValidateAntiForgeryToken]
             public async Task<IActionResult> Create(ContactCreateVM request)
             {

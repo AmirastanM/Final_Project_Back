@@ -5,7 +5,7 @@ using StoneSafety.Helpers.Extensions;
 using StoneSafety.Models;
 using StoneSafety.Services.Interfaces;
 using StoneSafety.ViewModels.Categories;
-using StoneSafety.ViewModels.SubCategories;
+
 
 namespace StoneSafety.Services
 {
@@ -23,9 +23,14 @@ namespace StoneSafety.Services
         public async Task<IEnumerable<Category>> GetAllWithHierarchyAsync()
         {
             return await _context.Categories
-                .Include(c => c.Subcategories)
+                .Include(c => c.SubCategories)
+                    .ThenInclude(sc => sc.SubSubCategories)
+                        .ThenInclude(ssc => ssc.Products)
+                .Include(c => c.SubCategories)
+                    .ThenInclude(sc => sc.Products)
                 .ToListAsync();
         }
+
 
         public async Task<Category> GetByIdAsync(int id)
         {
@@ -37,28 +42,33 @@ namespace StoneSafety.Services
         {
             return await _context.Categories
                 .Where(c => c.Id == id)
-                .Include(c => c.Subcategories)
+                .Include(c => c.SubCategories)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<SelectList> GetAllSelectedAsync()
+        public async Task<IEnumerable<SelectListItem>> GetAllSelectListItemsAsync()
         {
             var categories = await _context.Categories.ToListAsync();
-            return new SelectList(categories, "Id", "Name");
+            return categories.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
         }
 
-        public IEnumerable<CategoryVM> GetMappedDatas(IEnumerable<Category> categories)
+
+
+        public IEnumerable<CategorySubCategoryVM> GetMappedDatas(IEnumerable<Category> categories)
         {
-            return categories.Select(c => new CategoryVM
+            return categories.Select(c => new CategorySubCategoryVM
             {
                 Id = c.Id,
                 Name = c.Name,
                 Image = c.Image,
-                Subcategories = c.Subcategories.Select(sc => new SubCategoryVM
+                Subcategories = c.SubCategories.Select(sc => new ViewModels.Categories.SubCategoryVM
                 {
-                    Id = sc.Id,
                     Name = sc.Name
-                }).ToList()
+                }).Cast<ViewModels.Categories.SubCategoryVM>().ToList() 
             });
         }
 
@@ -68,7 +78,7 @@ namespace StoneSafety.Services
                 .OrderByDescending(c => c.Id)
                 .Skip((page - 1) * take)
                 .Take(take)
-                .Include(c => c.Subcategories)
+                .Include(c => c.SubCategories)
                 .ToListAsync();
         }
 
@@ -85,7 +95,7 @@ namespace StoneSafety.Services
         public async Task CreateAsync(CategoryCreateVM request)
         {
             string fileName = $"{Guid.NewGuid()}-{request.Image.FileName}";
-            string path = _env.GenerateFilePath("img", fileName);
+            string path = _env.GenerateFilePath("assets/images", fileName);
 
             await request.Image.SaveFileToLocalAsync(path);
 
@@ -103,28 +113,50 @@ namespace StoneSafety.Services
         {
             if (request.NewImage != null)
             {
-                string oldPath = _env.GenerateFilePath("img", category.Image);
-                oldPath.DeleteFileFromLocal();
+             
+                string oldPath = Path.Combine(_env.WebRootPath, "assets/images", category.Image); 
+                if (File.Exists(oldPath))
+                {
+                    File.Delete(oldPath);
+                }
 
+              
                 string fileName = $"{Guid.NewGuid()}-{request.NewImage.FileName}";
-                string newPath = _env.GenerateFilePath("img", fileName);
-                await request.NewImage.SaveFileToLocalAsync(newPath);
+                string newPath = Path.Combine(_env.WebRootPath, "assets/images", fileName);
+                using (var stream = new FileStream(newPath, FileMode.Create))
+                {
+                    await request.NewImage.CopyToAsync(stream);
+                }
 
                 category.Image = fileName;
             }
 
+         
             category.Name = request.Name.Trim();
+
+            
+            _context.Categories.Update(category);
             await _context.SaveChangesAsync();
         }
 
+
         public async Task DeleteAsync(Category category)
         {
-            string imagePath = _env.GenerateFilePath("img", category.Image);
+            string imagePath = _env.GenerateFilePath("assets/images", category.Image);
             imagePath.DeleteFileFromLocal();
 
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Category>> GetAllAsync()
+        {
+            return await _context.Categories
+                .ToListAsync();
+        }
+
+
+
     }
 
 

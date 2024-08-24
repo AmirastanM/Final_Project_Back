@@ -1,0 +1,77 @@
+﻿@model HeaderVMVC
+<div class="header__bg"></div>
+<div class="header__top">
+    <div class="container__full">
+        <div class="header__top-inner">
+            <ul class="socials">
+                <li><a href="#" class="number">@Model.Settings["Phone"]</a></li>
+                <li><a href="#" class="number">@Model.Settings["Phone1"]</a></li>
+                <li><a asp-controller="contact" asp-action="Index" class="contact">Bizimlə Əlaqə</a></li>
+                <li><a asp-controller="about" asp-action="Index" class="about">Haqqımızda</a></li>
+                <li class="nav-item my-auto shop-cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <sup class="rounded-circle">@Model.BasketCount</sup>
+                   <a asp-controller="Card" asp-action="Index">CART ($@Model.BasketTotalPrice)</a>
+                
+                </li>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        @if (!Model.UserIsAuthenticated)
+                        {
+                            <a asp-controller="account" asp-action="signin" class="dropdown-item">Sign In</a>
+                            <a asp-controller="account" asp-action="signup" class="dropdown-item">Sign Up</a>
+                        }
+                        else
+                        {
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                <button type="submit" class="dropdown-item">
+                                    Log Out
+                                </button>
+                            </form>
+                            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+
+                                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="dropdown-item">Go to Admin</a>
+                            }
+                        }
+                    </div>
+                </div>
+            </ul>
+        </div>
+            
+    </div>
+</div>
+
+<header class="header">
+    <div class="container__full">
+
+        <div class="header__body">
+            <a asp-controller="Home" asp-action="Index" class="header__logo">
+                <img src="~/assets/images/@Model.Settings["LOGO"]" alt="Stone Safety - Logo">
+                <div class="header__logo-text">@Model.Settings["CompanyName"]</div>
+            </a>
+          
+            <div class="header__burger">
+                <span></span>
+            </div>
+            <nav class="header__menu">
+                <ul class="header__list mobile__acc">
+                    <li><<a asp-controller="Home" asp-action="Index" class="header__link">Home</a></li>
+                    <li><a asp-controller="about" asp-action="Index" class="header__link">About</a></li>
+                    <li><a asp-controller="contact" class="header__link">Contact</a></li>
+                    <li><a asp-controller="shop" asp-action="Index" class="header__link">Products</a></li>
+                </ul>
+                <div class="slogan"><h2>HƏR ŞEY DƏYİŞİR, DƏYİŞMƏYƏN TƏK DƏYƏR GÜVƏNDİR!</h2></div>
+        
+            </nav>
+           
+            <div class="shop-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <sup class="rounded-circle">@Model.BasketCount</sup>
+                <span>CART ($@Model.BasketTotalPrice)</span>
+            </div>
+        </div>
+    </div>
+</header>
+

@@ -5,9 +5,9 @@ using StoneSafety.Helpers.Extensions;
 using StoneSafety.Models;
 using StoneSafety.Services.Interfaces;
 using StoneSafety.ViewModels.Accounts;
-using System.Data;
 
-namespace MVC_Mini_Project.Controllers
+
+namespace StoneSafety.Controllers
 {
     public class AccountController : Controller
     {
@@ -157,18 +157,18 @@ namespace MVC_Mini_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> CreateRoles()
-        //{
-        //    foreach (var role in Enum.GetValues(typeof(Roles)))
-        //    {
-        //        if (!await _roleManager.RoleExistsAsync(role.ToString()))
-        //        {
-        //            await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
-        //        }
-        //    }
+        [HttpGet]
+        public async Task<IActionResult> CreateRoles()
+        {
+            foreach (var role in Enum.GetValues(typeof(Roles)))
+            {
+                if (!await _roleManager.RoleExistsAsync(role.ToString()))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
+                }
+            }
 
-        //    return Ok();
-        //}
+            return Ok();
+        }
     }
 }

@@ -1,0 +1,79 @@
+﻿@model StoneSafety.ViewModels.Abouts.AboutIndexVM
+
+<section id="banner__wrapper">
+    <div class="banner page banner__home">
+        <div class="banner__bg" style="background-image: url(@Url.Content("~/assets/images/" + Model.About.Image));"></div>
+        <div class="container">
+            <div class="row">
+                <div class="banner__inner">
+                    <div class="banner__title">STONE SAFETY</div>
+                    <h1 class="banner__title-h1">Haqqımızda</h1>
+                </div>
+            </div>
+        </div>
+        <div class="banner__skewed-bar"></div>
+    </div>
+</section>
+
+<main class="main about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="main__about-right">
+                    <h2>Məhsullar Haqqında</h2>
+                    <p>
+                        <span>@Model.Settings["IGTitel"]</span> <br />
+                        @Model.Settings["IGDesc"]
+                    </p>
+                    <ul>
+                        <li>@Model.Settings["IG1"]</li>
+                        <li>@Model.Settings["IG2"]</li>
+                        <li>@Model.Settings["IG3"]</li>
+                        <li>@Model.Settings["IG4"]</li>
+                        <li>@Model.Settings["IG5"]</li>
+                        <li>@Model.Settings["IG6"]</li>
+                        <li>@Model.Settings["IG7"]</li>
+                        <li>@Model.Settings["IG8"]</li>
+                        <li>@Model.Settings["IG9"]</li>
+                    </ul>
+                    <p>
+                        <span>@Model.Settings["FQVTitel"]</span> <br />
+                        @Model.Settings["FQVDesc"]
+                    </p>
+                    <ul>
+                        <li>@Model.Settings["FQV1"]</li>
+                        <li>@Model.Settings["FQV2"]</li>
+                        <li>@Model.Settings["FQV3"]</li>
+                        <li>@Model.Settings["FQV4"]</li>
+                        <li>@Model.Settings["FQV5"]</li>
+                    </ul>
+                    <p>
+                        <span>@Model.Settings["XİATitel"]</span> <br />
+                        @Model.Settings["XİADesc"]
+                    </p>
+                    <ul>
+                        <li>@Model.Settings["XİA1"]</li>
+                        <li>@Model.Settings["XİA2"]</li>
+                        <li>@Model.Settings["XİA3"]</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="main__about-left">
+                    <h2>@Model.Settings["CompanyName"]</h2>
+                    <p>@Model.About.Title</p>
+                    <ul>
+                        <li>@Model.Settings["OurService1"]</li>
+                        <li>@Model.Settings["OurService2"]</li>
+                        <li>@Model.Settings["OurService3"]</li>
+                        <li>@Model.Settings["OurService4"]</li>
+                        <li>@Model.Settings["OurService5"]</li>
+                        <li>@Model.Settings["OurService6"]</li>
+                        <li>və s.</li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

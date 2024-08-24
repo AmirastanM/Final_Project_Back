@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using StoneSafety.Models;
-using System.Collections.Generic;
-using System.Reflection.Emit;
+
 
 namespace StoneSafety.Data
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {             
         public DbSet<About> Abouts { get; set; }
+        public DbSet<Banner> Banners { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Subcategory> SubCategories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<SubSubCategory> SubSubCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
@@ -23,8 +22,9 @@ namespace StoneSafety.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<About>().HasQueryFilter(m => !m.SoftDeleted);
+            builder.Entity<Banner>().HasQueryFilter(m => !m.SoftDeleted);
             builder.Entity<Category>().HasQueryFilter(m => !m.SoftDeleted);
-            builder.Entity<Subcategory>().HasQueryFilter(m => !m.SoftDeleted);
+            builder.Entity<SubCategory>().HasQueryFilter(m => !m.SoftDeleted);
             builder.Entity<SubSubCategory>().HasQueryFilter(m => !m.SoftDeleted);
             builder.Entity<Product>().HasQueryFilter(m => !m.SoftDeleted);
             builder.Entity<Setting>().HasQueryFilter(m => !m.SoftDeleted);
@@ -49,11 +49,18 @@ namespace StoneSafety.Data
                 .HasForeignKey(ssc => ssc.SubCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Subcategory>()
+            builder.Entity<SubCategory>()
                 .HasOne(sc => sc.Category)
-                .WithMany(c => c.Subcategories)
+                .WithMany(c => c.SubCategories)
                 .HasForeignKey(sc => sc.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Product>()
+               .Property(p => p.Price)
+               .HasColumnType("decimal(18,2)");
+
+            builder.Entity<ProductImage>()
+               .HasQueryFilter(pi => !pi.Product.SoftDeleted);
 
 
 

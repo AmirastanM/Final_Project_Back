@@ -1,0 +1,35 @@
+﻿@model AboutDetailVM
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="card m-auto w-75">
+    <div class="card-body">
+        <h4 class="card-title">About Detailed View</h4>
+        <div class="d-flex">
+            <div class="mb-3">
+                <a href="@Url.Action("Index", "About")" class="btn btn-primary">Back to About List</a>
+            </div>
+        </div>
+        <div class="mt-5 ">
+            <div class="image mb-5">
+                <img src="~/assets/images/@Model.Image" alt="" />
+            </div>
+            <div class="mb-0 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Title: </strong>@Model.Title</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Description: </strong>@Model.Description</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Create date: </strong>@Model.CreatedDate</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Update date: </strong>@Model.UpdatedDate</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

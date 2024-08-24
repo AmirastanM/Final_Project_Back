@@ -39,7 +39,7 @@ namespace StoneSafety.Services
         {
             string fileName = $"{Guid.NewGuid()}-{data.Image.FileName}";
 
-            string path = _env.GenerateFilePath("img", fileName);
+            string path = _env.GenerateFilePath("assets/images", fileName);
 
             await data.Image.SaveFileToLocalAsync(path);
 
@@ -55,7 +55,7 @@ namespace StoneSafety.Services
 
         public async Task DeleteAsync(About about)
         {
-            string imagePath = _env.GenerateFilePath("img", about.Image);
+            string imagePath = _env.GenerateFilePath("assets/images", about.Image);
             imagePath.DeleteFileFromLocal();
 
             _context.Abouts.Remove(about);
@@ -66,11 +66,11 @@ namespace StoneSafety.Services
         {
             if (data.NewImage is not null)
             {
-                string oldPath = _env.GenerateFilePath("img", about.Image);
+                string oldPath = _env.GenerateFilePath("assets/images", about.Image);
                 oldPath.DeleteFileFromLocal();
 
                 string fileName = $"{Guid.NewGuid()}-{data.NewImage.FileName}";
-                string newPath = _env.GenerateFilePath("img", fileName);
+                string newPath = _env.GenerateFilePath("assets/images", fileName);
                 await data.NewImage.SaveFileToLocalAsync(newPath);
 
                 about.Image = fileName;

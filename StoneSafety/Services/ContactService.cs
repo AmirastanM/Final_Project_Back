@@ -22,6 +22,7 @@ namespace StoneSafety.Services
                 Name = data.Name,
                 SurName = data.SurName,
                 Email = data.Email,
+                Phone = data.Phone,
                 Subject = data.Subject,
                 Message = data.Message
             });

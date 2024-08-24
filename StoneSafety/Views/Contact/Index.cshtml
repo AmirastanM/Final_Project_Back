@@ -6,7 +6,7 @@
 
 <section id="banner__wrapper">
     <div class="banner page banner__home">
-        <div class="banner__bg" style="background-image: url(~/assets/images/banniere.jpg);"></div>
+        <div class="banner__bg" style="background-image: url(/assets/images/5e5e9c52-8386-40db-8ce7-4d10b8a120e2-banniere.jpg);"></div>
         <div class="container">
             <div class="row">
                 <div class="banner__inner">
@@ -27,34 +27,42 @@
                     <div class="cotnact__form">
                         <form method="post" asp-action="Create">
                             <div class="two">
-                                <input asp-for="Name" class="form-control" id="name" placeholder="Adınız...">
-                                <input asp-for="SurName" class="form-control" id="surname" placeholder="Soyadınız...">
-                                <label for="name">Your Name</label>
+                                <div class="input__inner">
+                                <input asp-for="Name" class="form-control" id="name" placeholder="Adınız...">                                
+                                
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
+                                <div class="input__inner">
+                                <input asp-for="SurName" class="form-control" id="surname" placeholder="Soyadınız...">
+                                   
+                                    <span asp-validation-for="SurName" class="text-danger"></span>
+                                </div>
+                            </div>   
                             <div class="two">
                                 <div class="input__inner">
                                     <input asp-for="Email" type="text" class="form-control" id="email" placeholder="Sizin Email">
-                                    <label for="email">Your Email</label>
+                                   
                                     <span asp-validation-for="Email" class="text-danger"></span>                                    
                                 </div>
                                 <div class="input__inner">
-                                    <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="+994 5. ... .. ..">
-                                <label for="email">Your Email</label>
-                                <span asp-validation-for="Email" class="text-danger"></span>                                   
+                                    <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="+994 5. ... .. .."
+                                           inputmode="tel" pattern="\+?[0-9]*" title="Enter only numbers and optional '+' symbol">
+                                    
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
                                 </div>
+
+
+
                             </div>
                             <div class="two">
                                 <div class="input__inner">
-                                    <input asp-for="Subject" class="form-control" id="subject" placeholder="Başlıq...">
-                                    <label for="subject">Subject</label>
-                                    <span asp-validation-for="Subject" class="text-danger"></span>
-                                    <input type="text" placeholder="Başlıq...">
+                                    <input asp-for="Subject" class="form-control mt-3" id="subject" placeholder="Başlıq...">                                  
+                                    <span asp-validation-for="Subject" class="text-danger"></span>                                  
                                 </div>
                             </div>
                             <div class="input__inner">
                                 <textarea asp-for="Message" class="form-control" placeholder="Təkliflər, Məhsullar, Sifarişlər, Əlavə Məlumat..." id="message" style="height: 150px"></textarea>
-                                <label for="message">Message</label>
+                               
                                 <span asp-validation-for="Message" class="text-danger"></span>                               
                             </div>
                             <div class="button__inner"><button class="btn__vk" type="submit">Göndər</button></div>
@@ -67,20 +75,22 @@
                     <h2>Əlaqə Məlumatı</h2>
                     <div class="ms-3">
                         <h5 class="text">Email:</h5>
-                        <p class="mb-0">@ViewBag["Email"]</p>
+                        <p class="mb-0">@ViewBag.Email</p>
                     </div>
                     <div class="ms-3">
                         <h5 class="text">Telefon:</h5>
-                        <p class="mb-0">@ViewBag["Phone"]</p>
-                        <p class="mb-0">@ViewBag["Phone1"]</p>
+                        <p class="mb-0">@ViewBag.Phone</p>
+                        <p class="mb-0">@ViewBag.Phone1</p>
                     </div>  <div class="ms-3">
                         <h5 class="text">Ünvan:</h5>
-                        <p class="mb-0">@ViewBag.setting["Location"]</p>
+                        <p class="mb-0">@ViewBag.Location</p>
 
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
 </main>
 <section id="map">
     <div class="" id="map">

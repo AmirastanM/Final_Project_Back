@@ -171,7 +171,6 @@ namespace StoneSafety.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("SoftDeleted")
@@ -210,7 +209,6 @@ namespace StoneSafety.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -259,6 +257,40 @@ namespace StoneSafety.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("StoneSafety.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SoftDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banners");
+                });
+
             modelBuilder.Entity("StoneSafety.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -271,7 +303,6 @@ namespace StoneSafety.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -305,7 +336,6 @@ namespace StoneSafety.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Message")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -313,14 +343,12 @@ namespace StoneSafety.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("SoftDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Subject")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SurName")
@@ -368,11 +396,9 @@ namespace StoneSafety.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("SubSubCategoryId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("SubcategoryId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -395,11 +421,13 @@ namespace StoneSafety.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
@@ -424,7 +452,6 @@ namespace StoneSafety.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Key")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("SoftDeleted")
@@ -434,7 +461,6 @@ namespace StoneSafety.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Value")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -442,7 +468,7 @@ namespace StoneSafety.Migrations
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("StoneSafety.Models.Subcategory", b =>
+            modelBuilder.Entity("StoneSafety.Models.SubCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -560,14 +586,12 @@ namespace StoneSafety.Migrations
                     b.HasOne("StoneSafety.Models.SubSubCategory", "SubSubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubSubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("StoneSafety.Models.Subcategory", "Subcategory")
+                    b.HasOne("StoneSafety.Models.SubCategory", "Subcategory")
                         .WithMany("Products")
                         .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("SubSubCategory");
 
@@ -585,10 +609,10 @@ namespace StoneSafety.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("StoneSafety.Models.Subcategory", b =>
+            modelBuilder.Entity("StoneSafety.Models.SubCategory", b =>
                 {
                     b.HasOne("StoneSafety.Models.Category", "Category")
-                        .WithMany("Subcategories")
+                        .WithMany("SubCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -598,7 +622,7 @@ namespace StoneSafety.Migrations
 
             modelBuilder.Entity("StoneSafety.Models.SubSubCategory", b =>
                 {
-                    b.HasOne("StoneSafety.Models.Subcategory", "SubCategory")
+                    b.HasOne("StoneSafety.Models.SubCategory", "SubCategory")
                         .WithMany("SubSubCategories")
                         .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -609,7 +633,7 @@ namespace StoneSafety.Migrations
 
             modelBuilder.Entity("StoneSafety.Models.Category", b =>
                 {
-                    b.Navigation("Subcategories");
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("StoneSafety.Models.Product", b =>
@@ -617,7 +641,7 @@ namespace StoneSafety.Migrations
                     b.Navigation("ProductImages");
                 });
 
-            modelBuilder.Entity("StoneSafety.Models.Subcategory", b =>
+            modelBuilder.Entity("StoneSafety.Models.SubCategory", b =>
                 {
                     b.Navigation("Products");
 

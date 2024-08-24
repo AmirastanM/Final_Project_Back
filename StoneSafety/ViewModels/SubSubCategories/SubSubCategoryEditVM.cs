@@ -8,7 +8,7 @@ namespace StoneSafety.ViewModels.SubSubCategories
         public int Id { get; set; } 
 
         [Required]
-        [StringLength(200, ErrorMessage = "Название не может превышать 200 символов.")]
+        [StringLength(200, ErrorMessage = "The name cannot exceed 200 characters.")]
         public string Name { get; set; } 
 
         [Required]

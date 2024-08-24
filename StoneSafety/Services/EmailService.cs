@@ -19,6 +19,7 @@ namespace StoneSafety.Services
 
         public void Send(string to, string subject, string html, string from = null)
         {
+            var test = _emailSettings.FromAddress;
             // create message
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(from ?? _emailSettings.FromAddress));

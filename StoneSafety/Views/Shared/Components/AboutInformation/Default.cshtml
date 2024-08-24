@@ -1,0 +1,45 @@
+﻿@model AboutInformationVMVC
+
+<section id="aboutInformation">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="main__about-left">
+                    <h2>@Model.Settings["CompanyName"], 4 İL SİZİNLƏ</h2>
+                    <p>
+                        @Model.Title
+                    </p>
+                    <ul>
+                        <li>@Model.Settings["OurService1"]</li>
+                        <li>@Model.Settings["OurService2"]</li>
+                        <li>@Model.Settings["OurService3"]</li>
+                        <li>@Model.Settings["OurService4"]</li>
+                        <li>@Model.Settings["OurService5"]</li>
+                        <li>@Model.Settings["OurService6"]</li>
+                        <li>və s.</li>
+                    </ul>
+                    <p>
+                        @Model.Description
+                    </p><br>
+
+                    <h4><a asp-controller="Home" asp-action="About" class="nav-item nav-link">ƏTRAFLI</a></h4><br><br>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="main__about-right">
+                    <h3>İXTİSASLAŞMAMIZ</h3>
+                    <ul>
+                        <li style="background-image: url(/assets/images/clothesssew.svg)"><a>KORPORATİV ÜSULLA TİKİLİŞ</a></li>
+                        <li style="background-image: url(/assets/images/flex.svg)"><a>LOQOLARIN DTF İLƏ VURULMASI</a></li>
+                        <li style="background-image: url(/assets/images/logosew.svg)"><a>LOQOLARIN TİKİŞLƏ VURULMASI</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+    <div style="clear: both;"></div>
+
+
+</section>

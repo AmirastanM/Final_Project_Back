@@ -1,0 +1,37 @@
+﻿@model StoneSafety.ViewModels.Categories.CategoryDetailVM
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="card m-auto w-75">
+    <div class="card-body">
+        <h4 class="card-title">Category Detailed View</h4>
+        <div class="mt-5">
+            <div class="image mb-5">
+                <img src="@Url.Content($"~/assets/images/{Model.Image}")" alt="Category Image" class="img-fluid" />
+            </div>
+            <div class="mb-0 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Name: </strong>@Model.Name</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Create date: </strong>@Model.CreatedDate</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Update date: </strong>@Model.UpdatedDate</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow">
+                <p class="mb-0 font-weight-light"><strong>SubCategories:</strong></p>
+                <ul class="list-group list-group-flush w-50">
+                    @foreach (var item in Model.SubCategories)
+                    {
+                        <li class="list-group-item">@item</li>
+                    }
+                </ul>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>SubCategory count: </strong>@Model.SubCategoryCount</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
 
 namespace StoneSafety.Models
 {
-    public class Subcategory : BaseEntity
+    public class SubCategory : BaseEntity
     {
         [Required]
         public string Name { get; set; }

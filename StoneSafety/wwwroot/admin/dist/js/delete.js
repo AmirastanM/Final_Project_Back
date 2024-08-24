@@ -1,163 +1,46 @@
-$(function () {
-    $(document).on("click", "#slider-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
 
-        $(document).on("click", "#slider-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/slider/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
+    function setupDeleteFunctionality(buttonClass, yesButtonClass, urlPrefix) {
+        const deleteButtons = document.querySelectorAll(buttonClass);
+        const yesButton = document.querySelector(yesButtonClass);
+        let deleteId = null;
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                deleteId = this.getAttribute('data-id');
+                console.log(deleteId);
             });
-        })
-    })
-
-    $(document).on("click", "#information-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
-        $(document).on("click", "#information-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/information/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
-            });
-        })
-    })
-
-    $(document).on("click", "#about-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
-
-        $(document).on("click", "#about-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/about/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
-            });
-        })
-    })
-
-    $(document).on("click", "#category-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
-
-        $(document).on("click", "#category-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/category/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
-            });
-        })
-    })
-
-    $(document).on("click", "#instructor-edit-area .delete-social", function () {
-        let instructorId = parseInt($(this).attr("data-instructorId"));
-        let socialId = parseInt($(this).attr("data-socialId"));
-        let link = $(this).attr("data-link");
-
-        let data = { instructorId, socialId, link };
-
-        let li = $(this).closest("li")
-
-        $.ajax({
-            type: "POST",
-            url: `/admin/instructor/deleteinstructorsocial`,
-            data: data,
-            success: function () {
-                li.remove();
-            }
         });
-    })
 
-    $(document).on("click", "#instructor-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
-
-        $(document).on("click", "#instructor-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/instructor/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
+        if (yesButton) {
+            yesButton.addEventListener('click', function () {
+                if (deleteId) {
+                    fetch(`${urlPrefix}/delete/${deleteId}`, {
+                        method: 'DELETE'
+                       
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload();
+                            } else {
+                                alert(`An error occurred while deleting the ${buttonClass.slice(1)}.`);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
                 }
             });
-        })
-    })
+        } else {
+            console.warn(`No element found for ${yesButtonClass}`);
+        }
 
-    $(document).on("click", "#course-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
 
-        $(document).on("click", "#course-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/course/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
-            });
-        })
-    })
+    }
+ 
 
-    $(document).on("click", "#student-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
+    setupDeleteFunctionality('.delete-btn-about', '.yes-btn-about', '/admin/about');
+    setupDeleteFunctionality('.delete-btn-banner', '.yes-btn-banner', '/admin/banner');
+    setupDeleteFunctionality('.delete-btn-category', '.yes-btn-category', '/admin/category');
+    setupDeleteFunctionality('.delete-btn-product', '.yes-btn-product', '/admin/product');
+    setupDeleteFunctionality('.delete-btn-subcategory', '.yes-btn-subcategory', '/admin/subcategory');
+    setupDeleteFunctionality('.delete-btn-subsubcategory', '.yes-btn-subsubcategory', '/admin/subsubcategory');
+    setupDeleteFunctionality('.delete-btn-contact', '.yes-btn-contact', '/admin/contact');
 
-        $(document).on("click", "#student-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/student/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
-            });
-        })
-    })
-
-    $(document).on("click", "#student-edit-area .delete-course", function () {
-        let courseId = parseInt($(this).attr("data-courseId"));
-        let studentId = parseInt($(this).attr("data-studentId"));
-
-        let data = { courseId, studentId };
-
-        let li = $(this).closest("li")
-
-        $.ajax({
-            type: "POST",
-            url: `/admin/student/deletecoursestudent`,
-            data: data,
-            success: function () {
-                li.remove();
-            }
-        });
-    })
-
-    $(document).on("click", "#social-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
-
-        $(document).on("click", "#social-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/social/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
-            });
-        })
-    })
-
-     $(document).on("click", "#contact-area .delete-btn", function () {
-        let id = parseInt($(this).attr("data-id"));
-
-        $(document).on("click", "#contact-area .yes-btn", function () {
-            $.ajax({
-                type: "POST",
-                url: `/admin/contact/delete?id=${id}`,
-                success: function () {
-                    window.location.reload();
-                }
-            });
-        })
-    })
-})

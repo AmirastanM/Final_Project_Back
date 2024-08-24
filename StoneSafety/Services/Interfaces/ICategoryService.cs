@@ -9,13 +9,15 @@ namespace StoneSafety.Services.Interfaces
         Task<IEnumerable<Category>> GetAllWithHierarchyAsync();
         Task<Category> GetByIdAsync(int id);
         Task<Category> GetByIdWithHierarchyAsync(int id);
-        Task<SelectList> GetAllSelectedAsync();
-        IEnumerable<CategoryVM> GetMappedDatas(IEnumerable<Category> categories);
+        Task<IEnumerable<SelectListItem>> GetAllSelectListItemsAsync();
+        IEnumerable<CategorySubCategoryVM> GetMappedDatas(IEnumerable<Category> categories);
         Task<IEnumerable<Category>> GetAllPaginateAsync(int page, int take);
         Task<int> GetCountAsync();
         Task<bool> ExistAsync(string name);
         Task CreateAsync(CategoryCreateVM request);
         Task EditAsync(Category category, CategoryEditVM request);
         Task DeleteAsync(Category category);
+        Task<IEnumerable<Category>> GetAllAsync();
+       
     }
 }

@@ -2,7 +2,7 @@
 {
     public class MainAndDeleteImageVM
     {
-        public int CourseId { get; set; }
+        public int ProductId { get; set; }
         public int ImageId { get; set; }
     }
 }

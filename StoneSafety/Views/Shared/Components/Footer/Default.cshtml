@@ -1,0 +1,49 @@
+﻿@model FooterVMVC
+
+<footer class="footer">
+    <div class="footer__top">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 d-flex justify-content-around">
+                    <div class="inner text-center">
+                        <img src="~/assets/images/@Model.Settings["LOGO"]" alt="@Model.Settings["CompanyName"] Logo">
+                        <p>Bazar Ertəsi - Şənbə<br />9:00 - 18:00<br />@Model.Settings["CompanyName"]</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex justify-content-around">
+                    <div class="inner text-center">
+                        <p class="number">
+                            <a href="https://wa.me/@Model.Settings["Phone"]" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            @Model.Settings["Phone"]
+                        </p>
+                        <p class="number">
+                            <a href="https://wa.me/@Model.Settings["Phone1"]" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            @Model.Settings["Phone1"]
+                        </p>
+                        <div class="btn__vk">BİZİMLƏ ƏLAQƏ</div>
+                        <ul class="socials">
+                            <li><a href="@Model.Settings["InstagramLink"]" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer__bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; <span id="currentYear"></span> | @Model.Settings["CompanyName"] | Bütün Hüquqlar Qorunur | Created by Amirastan Mereyev</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>

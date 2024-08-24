@@ -6,20 +6,22 @@ namespace StoneSafety.ViewComponents
     public class AboutViewComponent : ViewComponent
     {
         private readonly IAboutService _aboutService;
+        private readonly ISettingService _settingService;
 
 
-        public AboutViewComponent(IAboutService aboutService)
+        public AboutViewComponent(IAboutService aboutService,ISettingService settingService)
           
         {
             _aboutService = aboutService;
+            _settingService = settingService;
            
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            var about = await _aboutService.GetFirstAsync();
-           
+           var about = await _aboutService.GetFirstAsync();
+           var settings=await _settingService.GetAllAsync();
 
 
 
@@ -27,8 +29,9 @@ namespace StoneSafety.ViewComponents
             {
                 Title = about.Title,
                 Description = about.Description,
-                Image = about.Image               
-            }));
+                Image = about.Image,
+                Settings = settings
+            })) ;
         }
     }
 
@@ -36,6 +39,7 @@ namespace StoneSafety.ViewComponents
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }       
+        public string Image { get; set; }
+        public Dictionary<string,string> Settings { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace StoneSafety.ViewModels.Categories
+﻿using System.Collections.Generic;
+
+namespace StoneSafety.ViewModels.Categories
 {
     public class CategoryDetailVM
     {
@@ -7,6 +9,6 @@
         public string CreatedDate { get; set; }
         public string UpdatedDate { get; set; }
         public ICollection<string> SubCategories { get; set; } = new List<string>();
+        public int SubCategoryCount => SubCategories?.Count ?? 0; 
     }
-
 }

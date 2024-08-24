@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace StoneSafety.ViewModels.Products
 {
     public class ProductEditVM
@@ -21,16 +22,19 @@ namespace StoneSafety.ViewModels.Products
         public int Rating { get; set; }
 
         public string CurrentImage { get; set; }
-        public IFormFile NewImage { get; set; } 
+        public IEnumerable<IFormFile> NewImages { get; set; }
 
         [Required]
-        public int SubCategoryId { get; set; } 
+        public int? SubCategoryId { get; set; }
 
-        public int? SubSubCategoryId { get; set; } 
+        public int? SubSubCategoryId { get; set; }
 
 
-        public IEnumerable<SelectListItem> SubCategories { get; set; } 
+        public IEnumerable<SelectListItem> SubCategories { get; set; }
 
         public IEnumerable<SelectListItem> SubSubCategories { get; set; }
+
+        public List<ProductImageEditVM> Images { get; set; } = new List<ProductImageEditVM>();
+
     }
 }

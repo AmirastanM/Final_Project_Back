@@ -1,0 +1,19 @@
+﻿@model BannerVMVC
+
+<section id="banner__wrapper">
+    <div class="banner banner__home">
+        <div class="banner__bg"
+             style="background-image: url('@Url.Content("~/assets/images/" + Model.Image)');">
+        </div>
+        <div class="banner__skewed-bar"></div>
+        <div class="container">
+            <div class="row">
+                <div class="banner__inner">                
+                    <h1 class="banner__title-h1">AZƏRBAYCANDA<br /> @Model.Description</h1>
+                    <a asp-controller="shop" asp-action="Index" class="btn__vk">Mağazaya keçid</a>             
+                </div>
+            </div>
+        </div>      
+    </div>
+   
+</section>

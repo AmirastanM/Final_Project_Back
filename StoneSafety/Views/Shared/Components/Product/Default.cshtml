@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ProductVMVC>
+
+<section id="categories">
+    <div class="container">
+        <div class="row categories__header">
+            <div class="col-lg-6">
+                <h2>Xüsusi təkliflər</h2>
+            </div>
+           
+
+        </div>
+      
+        <div class="categories__list">
+            <div class="categories__module">STONE SAFETY</div>
+            <div class="row justify-content-center">
+                @foreach (var product in Model)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="product-item bg-light" data-id="@product.Id" data-product-name="@product.Name" data-product-price="@product.Price">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="@Url.Content($"~/assets/images/{product.MainImage}")" alt="@product.Name">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#productModal" data-action="view-details" data-id="@product.Id">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="javascript:void(0);" data-id="@product.ProductCode">@product.Name</a>
+                                <div class="d-flex flex-column align-items-center justify-content-center mt-2">
+                                    <h3>@product.ProductCode</h3>
+                                    <h5>$@product.Price</h5>
+                                </div>
+                                <div class="cart align-items-center">
+                                   
+                                    <input type="hidden" class="form-control" data-id="@product.Id" value="1">
+                                    <button class="btn btn-danger add-to-cart-btn" data-id="@product.Id" data-price="@product.Price">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+       
+    </div>
+  
+</section>
+
+
+<<!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-content">                 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>             
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .product-img img {
+        width: 140px;
+        height: 170px;
+        object-fit: cover;
+        border-bottom: 1px solid #dee2e6;
+    }
+</style>

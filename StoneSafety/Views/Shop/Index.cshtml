@@ -1,0 +1,143 @@
+﻿
+@model Paginate<StoneSafety.ViewModels.ShopVM>
+
+<section id="shop_page">
+    <div class="container-fluid">
+        <div class="row col-12">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-4">
+                <!-- Categories Start -->
+                <div class="sidebar">
+                    <div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Kateqoriyalar</h5>
+                        </div>
+                        <ul class="sidebar_categories">
+                            @foreach (var data in Model.Datas)
+                            {
+                                @foreach(var category in data.Categories)
+                                {
+                                    <li class="category_class">
+                                        <a href="#" data-id="@category.Id" data-type="Category" class="category-toggle">@category.Name</a>
+                                        <span class="toggle-icon">+</span>
+                                        <ul class="sidebar_boots_subcategories" style="display:none;">
+                                            @foreach (var subCategory in category.Subcategories)
+                                            {
+                                                <li>
+                                                    <a href="#" data-id="@subCategory.Id" data-type="Subcategory" class="subcategory-toggle">@subCategory.Name</a>
+                                                    <span class="toggle-icon">+</span>
+                                                    <ul class="sidebar_subcategories" style="display:none;">
+                                                        @foreach (var subSubCategory in subCategory.SubSubCategoryShops)
+                                                        {
+                                                            <li><a href="#" data-id="@subSubCategory.Id" data-type="Subsubcategory" class="product-link subsubcategory">@subSubCategory.Name</a></li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <!-- Categories End -->
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9 col-md-8">
+                <div class="row pb-3">
+                    <div class="col-12 pb-1">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div> <h3> Məhsullar </h3></div>                    
+                        </div>
+                    </div>
+
+                    <!-- Product Grid -->
+                    <div id="product-container" class="row">
+                        @foreach (var data in Model.Datas)
+                        {
+                            @foreach(var product in data.Products)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="product-item bg-light" data-id="@product.Id" data-type="Product" data-product-name="@product.Name" data-product-price="@product.Price">
+                                        <div class="product-img position-relative overflow-hidden">
+                                            <img class="img-fluid w-100" src="@Url.Content($"~/assets/images/{product.Image}")" alt="@product.Name">
+                                            <div class="product-action">
+                                                <a class="btn btn-outline-dark btn-square" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#productModal" data-action="view-details" data-id="@product.Id">
+                                                    <i class="fa fa-search"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="text-center py-4">
+                                            <a class="h6 text-decoration-none text-truncate" href="javascript:void(0);" data-id="@product.ProductCode">@product.Name</a>
+                                            <div class="d-flex flex-column align-items-center justify-content-center mt-2">
+                                                <h3>@product.ProductCode</h3>
+                                                <h5>$@product.Price</h5>
+                                            </div>
+                                            <div class="cart align-items-center">
+
+                                                <input type="hidden" class="form-control" data-id="@product.Id" value="1">
+                                                <button class="btn btn-danger add-to-cart-btn" data-id="@product.Id" data-price="@product.Price">Add to Cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <!-- End Product Grid -->
+                </div>
+            </div>
+      
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-content">
+                 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>             
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="pagination-area d-flex justify-content-center mt-3">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPrevious ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" tabindex="-1">Previous</a>
+            </li>
+            @for (int i = 1; i <= @Model.TotalPage; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "disabled" : "")"><a class="page-link @(Model.CurrentPage == i ? "paginate-active" : "")" asp-action="Index" asp-route-page="@i">@i</a></li>
+            }
+            <li class="page-item @(Model.HasNext ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+<style>
+    .product-img img {
+        width: 140px;
+        height: 170px;
+        object-fit: cover;
+        border-bottom: 1px solid #dee2e6;
+    }
+</style>

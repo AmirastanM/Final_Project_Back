@@ -1,0 +1,29 @@
+﻿@model List<CategoryVMVC>
+
+<section id="categories">
+    <div class="container">
+        <div class="row categories__header">
+            <div class="col-lg-6">
+                <h2>KATEQORİYALAR</h2>
+            </div>
+        </div>
+        <div class="categories__list">
+            <div class="categories__module">STONE SAFETY</div>
+            <div class="row justify-content-center">
+                @foreach (var category in Model)
+                {
+                    <div class="col-lg-4">
+                        <div class="categories__box">
+                            <a href="#" style="background-image: url('@Url.Content("~/assets/images/" + category.Image)');">
+                                <div class="categories__box-bg"></div>
+                                <div class="btn__vk">@category.Name</div>
+                            </a>
+                        </div>
+                    </div>
+                }               
+            </div>          
+        </div>  
+    </div>
+   
+</section>
+

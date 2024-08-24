@@ -1,7 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!-- Banner Start -->
+@await Component.InvokeAsync("Banner")
+<!-- Banner End-->
+<main  class="main">
+    <!-- AboutInfo Start -->
+    @await Component.InvokeAsync("AboutInformation")
+    <!-- AboutInfo End-->
+    <!-- Category Start -->
+    @await Component.InvokeAsync("Category")
+    <!-- Category End -->
+    <!-- Product Start -->
+    @await Component.InvokeAsync("Product")
+    <!-- Product End -->
 
-<!-- About Start -->
-@await Component.InvokeAsync("About")
-<!-- About End -->
+ </main>
+
+
+
+

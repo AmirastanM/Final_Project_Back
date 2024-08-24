@@ -18,7 +18,7 @@ namespace StoneSafety.Models
         public SubSubCategory SubSubCategory { get; set; }
        
         public int? SubcategoryId { get; set; }
-        public Subcategory Subcategory { get; set; }
+        public SubCategory Subcategory { get; set; }
 
         public ICollection<ProductImage> ProductImages { get; set; }
     }

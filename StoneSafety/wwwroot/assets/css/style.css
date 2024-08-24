@@ -509,7 +509,7 @@ li {
 }
 
 .footer {
-  background-color: #0d0d0d;
+    background-color: #353333;
 }
 
 .footer__top {
@@ -615,7 +615,7 @@ li {
 .footer__bottom {
   border-top: 1px solid #3a3a3a;
   color: #e0e0e0;
-  padding: 15px 0 5px;
+  padding: 5px 0 5px;
 }
 
 .footer__bottom p {
@@ -804,7 +804,7 @@ li {
 
 @media (min-width: 1440px) {
   .banner__title-h1 {
-    font-size: 4rem;
+    font-size: 6rem;
   }
 }
 
@@ -2247,5 +2247,13 @@ li {
 }
 
 
-
-
+.slogan  h2{
+    position: absolute; 
+    top: 4px;
+    right: 80px; 
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 2.8rem;
+    color: white; 
+    z-index: 100; 
+}

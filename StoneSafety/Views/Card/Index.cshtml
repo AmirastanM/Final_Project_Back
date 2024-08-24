@@ -1,0 +1,102 @@
+﻿
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-light table-borderless table-hover text-center mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Products</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-table" class="align-middle">
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td class="align-middle">
+                                <img src="@Url.Content($"~/assets/images/{product.MainImage}")" alt="@product.Name" style="width: 50px;"> @product.Name
+                            </td>
+                            <td class="align-middle">$@product.Price</td>
+                            <td class="align-middle">
+                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-minus" data-id="@product.Id">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="@product.Count">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-plus" data-id="@product.Id">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">$@(product.Price * product.Count)</td>
+                            <td class="align-middle">
+                                <button class="btn btn-sm btn-danger btn-remove" data-id="@product.Id">
+                                    <i class="fa fa-times "></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <h5 class="section-title position-relative text-uppercase mb-3">
+                <span class="bg-secondary pr-3">Cart Summary</span>
+            </h5>
+            <div class="bg-light p-30 mb-5">
+                <div class="pt-2">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5>Total</h5>
+                        <h5>$@Model.TotalPrice</h5>
+                    </div>
+                    <div class="cotnact__form">
+                        <form id="checkout-form" method="post" asp-action="CheckOutEmailSend">
+                            <div class="two">
+                                <div class="input__inner">
+                                    <input required type="text" class="form-control" id="name" placeholder="Adınız...">
+
+                                    <span  class="text-danger"></span>
+                                </div>
+                               
+                            </div>
+                            <div class="two">
+                            <div class="input__inner">
+                                <input required type="text" class="form-control" id="surname" placeholder="Soyadınız...">
+
+                                <span class="text-danger"></span>
+                            </div>
+                            </div>
+                            <div class="two">
+                                <div class="input__inner">
+                                    <input required type="email" class="form-control" id="email" placeholder="Sizin Email">
+
+                                    <span  class="text-danger"></span>
+                                </div>
+                               
+                            </div>
+                            <div class="two">
+                            <div class="input__inner">
+                                <input required type="text" class="form-control" id="phone" placeholder="+994 5. ... .. .."
+                                       inputmode="tel" pattern="\+?[0-9]*" title="Enter only numbers and optional '+' symbol">
+
+                                <span class="text-danger"></span>
+                            </div>
+                            </div>
+                            <div class="button__inner"><button class="btn__vk" type="submit">Göndər</button></div>
+                        </form>
+                    </div>                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {<script src="~/assets/js/basketsubmit.js"></script> }

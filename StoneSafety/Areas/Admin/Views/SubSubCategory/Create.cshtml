@@ -1,0 +1,23 @@
+﻿@model StoneSafety.ViewModels.SubSubCategories.SubSubCategoryCreateVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form class="forms-sample" method="post" asp-action="Create">
+    @Html.AntiForgeryToken()
+    <div class="form-group mb-3">
+        <label>Name</label>
+        <input autocomplete="off" asp-for="Name" class="form-control" maxlength="200">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label>SubCategory</label>
+        <select asp-for="SubCategoryId" asp-items="Model.SubCategories" class="form-control">
+            <option value="">Select SubCategory</option>
+        </select>
+        <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary me-2 mt-3">Submit</button>
+    <a class="btn btn-light mt-3" asp-action="Index">Cancel</a>
+</form>

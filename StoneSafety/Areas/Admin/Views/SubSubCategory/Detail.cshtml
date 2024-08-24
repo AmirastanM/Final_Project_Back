@@ -1,0 +1,46 @@
+﻿@model StoneSafety.ViewModels.SubSubCategories.SubSubCategoryDetailVM
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="card m-auto w-75">
+    <div class="card-body">
+        <h4 class="card-title">Sub-SubCategory Detailed View</h4>
+        <div class="mb-3">
+            <a href="@Url.Action("Index", "SubSubCategory")" class="btn btn-primary">Back to SubSubCategory List</a>
+        </div>
+        <div class="mt-5">
+            <div class="mb-0 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Name: </strong>@Model.Name</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>SubCategory: </strong>@Model.SubCategoryName</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Create date: </strong>@Model.CreatedDate</p>
+            </div>
+            <div class="mb-0 mt-3 flex-grow d-flex">
+                <p class="mb-0 font-weight-light"><strong>Update date: </strong>@Model.UpdatedDate</p>
+            </div>
+        </div>
+
+        <div class="mb-0 mt-3 flex-grow">
+            <p class="mb-0 font-weight-light"><strong>Products:</strong></p>
+            <ul class="list-group list-group-flush w-50">
+                @if (Model.Products != null && Model.Products.Any())
+                {
+                    @foreach (var item in Model.Products)
+                    {
+                        <li class="list-group-item">@item.Name</li> 
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">No products found</li>
+                }
+            </ul>
+        </div>
+      
+    </div>
+</div>
