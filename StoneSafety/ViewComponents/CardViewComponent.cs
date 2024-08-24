@@ -23,20 +23,20 @@ namespace StoneSafety.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            // Получаем данные корзины из куки
+           
             var basketCookie = _accessor.HttpContext.Request.Cookies["basket"];
             var basketDatas = basketCookie != null
                 ? JsonConvert.DeserializeObject<List<BasketVM>>(basketCookie)
                 : new List<BasketVM>();
 
-            // Загружаем все продукты, которые есть в корзине
+         
             var productIds = basketDatas.Select(item => item.Id).ToList();
             var products = await _context.Products
                 .Include(p => p.ProductImages)
                 .Where(p => productIds.Contains(p.Id))
                 .ToListAsync();
 
-            // Создаем список CardVM для отображения
+          
             var items = products.Select(product => new CardVM
             {
                 Id = product.Id,
@@ -47,7 +47,7 @@ namespace StoneSafety.ViewComponents
                 Price = product.Price
             }).ToList();
 
-            // Подсчитываем общую стоимость
+          
             var totalPrice = basketDatas.Sum(m => m.Price * m.Count);
 
             var model = new TotalBasketVM

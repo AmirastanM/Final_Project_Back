@@ -40,7 +40,7 @@ function handleToggle(event) {
 
 
     function fetchProducts(id, type) {
-        console.log(`Fetching products for ${type} with ID ${id}`);
+    
 
         fetch(`/Shop/GetProductsBy${type}?id=${id}`)
             .then(response => {
@@ -49,8 +49,7 @@ function handleToggle(event) {
                 }
                 return response.json();
             })
-            .then(data => {
-                console.log('Products data:', data);
+            .then(data => {               
                 const productContainer = document.getElementById('product-container');
                 productContainer.innerHTML = data.map(product => `
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
@@ -59,7 +58,7 @@ function handleToggle(event) {
                                     <img class="img-fluid w-100" src="/assets/images/${product.image}" alt="${product.name}">
                                     <div class="product-action">
                                         <a class="btn btn-outline-dark btn-square" href="#" data-bs-toggle="modal" data-bs-target="#productModal" data-id="${product.id}">
-                                            <i class="fa fa-search"></i>
+                                            <i data-id="${product.id}" class="fa fa-search  btn-square"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -69,6 +68,10 @@ function handleToggle(event) {
                                         <h3>${product.productCode}</h3>
                                         <h5>$${product.price}</h5>
                                     </div>
+                                     <div class="cart align-items-center">
+                                         <input type="hidden" class="form-control" data-id="${product.id}" value="1">
+                                         <button class="btn btn-danger add-to-cart-btn" data-id="${product.id}" data-price="${product.price}">Add to Cart</button>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -80,9 +83,8 @@ function handleToggle(event) {
     const sortButtons = document.querySelectorAll('#sort-menu .dropdown-item');
     sortButtons.forEach(button => {
         button.addEventListener('click', function () {
-            console.log('Sort button clicked');
-            const sortOrder = this.getAttribute('data-sort');
-            console.log(`Sort order: ${sortOrder}`);
+          
+            const sortOrder = this.getAttribute('data-sort');          
             window.location.href = `/ShopController/Index?sortOrder=${sortOrder}`;
         });
     });

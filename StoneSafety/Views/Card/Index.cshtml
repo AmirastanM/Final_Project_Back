@@ -5,6 +5,7 @@
             <table class="table table-light table-borderless table-hover text-center mb-0">
                 <thead class="thead-dark">
                     <tr>
+                        <th>Pictures</th>
                         <th>Products</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -17,8 +18,12 @@
                     {
                         <tr>
                             <td class="align-middle">
-                                <img src="@Url.Content($"~/assets/images/{product.MainImage}")" alt="@product.Name" style="width: 50px;"> @product.Name
+                                <img src="@Url.Content($"~/assets/images/{product.MainImage}")" alt="@product.Name" style="width: 50px;">
                             </td>
+                            <td class="align-middle">
+                                @product.Name
+                            </td>
+
                             <td class="align-middle">$@product.Price</td>
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -35,7 +40,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="align-middle">$@(product.Price * product.Count)</td>
+                            <td class="align-middle productTotal" data-TotalPrice="@(product.Price * product.Count)">$@(product.Price * product.Count)</td>
                             <td class="align-middle">
                                 <button class="btn btn-sm btn-danger btn-remove" data-id="@product.Id">
                                     <i class="fa fa-times "></i>
@@ -54,43 +59,40 @@
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Total</h5>
-                        <h5>$@Model.TotalPrice</h5>
+                        <h5 class="cartTotalPrice">$@Model.TotalPrice</h5>
                     </div>
                     <div class="cotnact__form">
                         <form id="checkout-form" method="post" asp-action="CheckOutEmailSend">
                             <div class="two">
                                 <div class="input__inner">
                                     <input required type="text" class="form-control" id="name" placeholder="Adınız...">
-
-                                    <span  class="text-danger"></span>
+                                    <span class="text-danger"></span>
                                 </div>
-                               
                             </div>
                             <div class="two">
-                            <div class="input__inner">
-                                <input required type="text" class="form-control" id="surname" placeholder="Soyadınız...">
-
-                                <span class="text-danger"></span>
-                            </div>
+                                <div class="input__inner">
+                                    <input required type="text" class="form-control" id="surname" placeholder="Soyadınız...">
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
                             <div class="two">
                                 <div class="input__inner">
                                     <input required type="email" class="form-control" id="email" placeholder="Sizin Email">
-
-                                    <span  class="text-danger"></span>
+                                    <span class="text-danger"></span>
                                 </div>
-                               
                             </div>
                             <div class="two">
-                            <div class="input__inner">
-                                <input required type="text" class="form-control" id="phone" placeholder="+994 5. ... .. .."
-                                       inputmode="tel" pattern="\+?[0-9]*" title="Enter only numbers and optional '+' symbol">
-
-                                <span class="text-danger"></span>
+                                <div class="input__inner">
+                                    <input required type="text" class="form-control" id="phone" placeholder="+994 5. ... .. .."
+                                           inputmode="tel" pattern="\+?[0-9]*" title="Enter only numbers and optional '+' symbol">
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
+                            <div class="button__inner" style="display: flex; justify-content: center;">
+                                <button class="btn__vk" type="submit">Göndər</button>
                             </div>
-                            <div class="button__inner"><button class="btn__vk" type="submit">Göndər</button></div>
                         </form>
+
                     </div>                 
                 </div>
             </div>

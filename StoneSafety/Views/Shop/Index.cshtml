@@ -65,7 +65,7 @@
                                             <img class="img-fluid w-100" src="@Url.Content($"~/assets/images/{product.Image}")" alt="@product.Name">
                                             <div class="product-action">
                                                 <a class="btn btn-outline-dark btn-square" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#productModal" data-action="view-details" data-id="@product.Id">
-                                                    <i class="fa fa-search"></i>
+                                                    <i data-id="@product.Id" class="fa fa-search btn-square"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -89,24 +89,25 @@
                     <!-- End Product Grid -->
                 </div>
             </div>
+        </div>
+    </div>
       
 </section>
 
-<!-- Modal -->
+<<!-- Modal -->
 <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                <h5 class="modal-title" id="productModalLabel">Məhsul haqqında</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div id="modal-content">
-                 
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>             
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

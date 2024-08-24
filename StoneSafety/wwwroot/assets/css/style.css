@@ -551,7 +551,7 @@ li {
 }
 
 .footer__top p a:hover {
-  color: #fd5a14;
+ /* color: #fd5a14;*/
 }
 
 @media (min-width: 1024px) {
@@ -802,7 +802,7 @@ li {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1440px) {.btn__vk:hover
   .banner__title-h1 {
     font-size: 6rem;
   }
@@ -967,9 +967,10 @@ li {
   letter-spacing: 1rem;
 }
 
-.main__about-left h4 a:hover {
-  color: #000;
-}
+    .main__about-left h4 a:hover {
+        background-color: #fd5a14;
+        color: #fff;
+    }
 
 .main__about-right {
   position: relative;
@@ -1664,12 +1665,13 @@ li {
 
 
 .sidebar_categories ul ul {
-  padding-left: 15px; /* Отступ для вложенных списков */
+  padding-left: 15px; 
 }
 
 .sidebar_categories li a {
   display: inline-block;
-  margin-bottom: 5px; /* Увеличиваем расстояние между ссылками в списке */
+  margin-bottom: 5px;
+
 }
 
 /* Main Content Styles */
@@ -1772,7 +1774,7 @@ li {
 }
 
 .page_selection li a:hover {
-  background-color: #fd5a14;
+ /* background-color: #fd5a14;*/
   color: #fff;
 }
 
@@ -2068,6 +2070,12 @@ li {
   justify-content: center;
   background: rgba(61, 70, 77, .5);
   z-index: 1;
+}
+
+#modalImage {
+    width: 100%; /* Изображение займет 100% ширины родительского контейнера */
+    height: auto; /* Высота будет автоматически подстраиваться для сохранения пропорций */
+    max-width: 500px; /* Максимальная ширина изображения (можно изменить) */
 }
 
 .cat-item {

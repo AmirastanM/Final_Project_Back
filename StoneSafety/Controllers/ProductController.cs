@@ -14,10 +14,10 @@ public class ProductController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // Get the products from the service
+        
         var products = await _productService.GetAllAsync();
 
-        // Return the view with the products
+       
         return View(products);
     }
 

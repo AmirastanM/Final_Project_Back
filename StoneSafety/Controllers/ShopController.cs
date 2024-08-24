@@ -41,7 +41,7 @@ namespace StoneSafety.Controllers
             var categories = await _categoryService.GetAllAsync();
             var subCategories = await _subCategoryService.GetAllAsync();
             var subSubCategories = await _subSubCategoryService.GetAllAsync();
-            var products = await _productService.GetAllPaginateAsync(page, 8);
+            var products = await _productService.GetAllPaginateAsync(page, 9);
 
             var viewModel = new ShopVM
             {
@@ -111,7 +111,7 @@ namespace StoneSafety.Controllers
                 }).ToList()
             };
             List<ShopVM> ProductPaginate = new List<ShopVM> { viewModel };
-            var totalPage = await GetPageCountAsync(8);
+            var totalPage = await GetPageCountAsync(9);
             var response = new Paginate<ShopVM>(ProductPaginate , totalPage, page);
 
             return View(response);

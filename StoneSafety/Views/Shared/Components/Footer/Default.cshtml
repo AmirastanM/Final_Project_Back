@@ -24,7 +24,9 @@
                             </a>
                             @Model.Settings["Phone1"]
                         </p>
-                        <div class="btn__vk">BİZİMLƏ ƏLAQƏ</div>
+                        <div class="btn__vk">
+                            <a asp-controller="Contact" asp-action="Index" class="header__link">BİZİMLƏ ƏLAQƏ</a>
+                        </div>
                         <ul class="socials">
                             <li><a href="@Model.Settings["InstagramLink"]" target="_blank"><i class="fab fa-instagram"></i></a></li>
                         </ul>

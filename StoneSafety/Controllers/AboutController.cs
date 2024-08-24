@@ -19,14 +19,14 @@ namespace StoneSafety.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Retrieve the first About record
+
             var about = await _aboutService.GetFirstAsync();
             if (about == null) return NotFound();
 
-            // Retrieve settings as a dictionary
+          
             var settings = await _settingService.GetAllAsync();
 
-            // Map the About model to AboutVM
+        
             var aboutVM = new AboutVM
             {
                 Id = about.Id,
@@ -35,7 +35,7 @@ namespace StoneSafety.Controllers
                 CreatedDate = about.CreatedDate.ToString("MMMM dd, yyyy")
             };
 
-            // Creating a view model with both AboutVM and settings
+         
             var viewModel = new AboutIndexVM
             {
                 About = aboutVM,

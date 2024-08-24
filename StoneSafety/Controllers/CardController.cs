@@ -65,7 +65,7 @@ namespace StoneSafety.Controllers
             {
                 Products = basketProducts,
                 TotalPrice = basketDatas.Sum(m => m.Count * m.Price),
-                TotalCount = basketDatas.Sum(m => m.Count) // Исправлено: теперь сумма количества всех товаров
+                TotalCount = basketDatas.Sum(m => m.Count) 
             };
 
             return View(basketDetail);
@@ -133,32 +133,30 @@ namespace StoneSafety.Controllers
             var existingItem = basketDatas.FirstOrDefault(b => b.Id == basketItem.Id);
             if (existingItem != null)
             {
-                existingItem.Count += basketItem.Count; // Increment count
-                if (existingItem.Count <= 0) // Remove item if count is zero or less
-                {
-                    basketDatas.Remove(existingItem);
-                }
+                existingItem.Count = basketItem.Count;              
             }
             else
             {
-                basketDatas.Add(basketItem); // Add new item if not exists
+                basketDatas.Add(basketItem); 
             }
 
             var updatedBasketData = JsonConvert.SerializeObject(basketDatas);
             _accessor.HttpContext.Response.Cookies.Append("basket", updatedBasketData, new CookieOptions
             {
-                Expires = DateTimeOffset.Now.AddDays(7), // Example expiration
+                Expires = DateTimeOffset.Now.AddDays(7), 
                 HttpOnly = true,
-                Secure = true // Only if using HTTPS
+                Secure = true 
             });
 
             int totalCount = basketDatas.Sum(b => b.Count);
             decimal totalPrice = basketDatas.Sum(b => b.Price * b.Count);
+            decimal productTotalPrice = basketItem.Price * basketItem.Count;
 
             return Ok(new
             {
                 basketCount = totalCount,               
-                totalPrice
+                totalPrice,
+                productTotalPrice
             });
         }
 
@@ -189,9 +187,9 @@ namespace StoneSafety.Controllers
             var updatedBasketData = JsonConvert.SerializeObject(basketDatas);
             _accessor.HttpContext.Response.Cookies.Append("basket", updatedBasketData, new CookieOptions
             {
-                Expires = DateTimeOffset.Now.AddDays(7), // Example expiration
+                Expires = DateTimeOffset.Now.AddDays(7), 
                 HttpOnly = true,
-                Secure = true // Only if using HTTPS
+                Secure = true 
             });
 
             int totalCount = basketDatas.Sum(b => b.Count);

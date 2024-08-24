@@ -1,38 +1,41 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
+       
+    document.body.addEventListener('click', function (event) {
+        if (event.target && event.target.classList.contains('btn-square')) {
 
-    document.querySelectorAll('[data-action="view-details"]').forEach(button => {
-        button.addEventListener('click', () => {
-            const productId = button.getAttribute('data-id');
+            const productId = event.target.getAttribute('data-id');
             fetch(`/Product/GetProductDetails/${productId}`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('modal-content').innerHTML = `
                         <h5>${data.name}</h5>
                         <p>${data.description}</p>
-                        <p><img src="/assets/images/${data.mainImage}" alt="${data.name}" style="width: 100px;"> </p>
+                        <p><img src="/assets/images/${data.mainImage}" alt="${data.name}" style="width: 480px; height: 430px"> </p>
                         <p>Price: $${data.price.toFixed(2)}</p>
-                        <p>Available Quantity: ${data.availableQuantity}</p>
+                       
                     `;
                     document.querySelector('.add-to-cart-btn').setAttribute('data-id', data.id);
                 })
                 .catch(error => console.error('Error loading product details:', error));
-        });
-    });
+        }
+    })
 
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const productId = button.getAttribute('data-id');
-            const productPrice = button.getAttribute('data-price');
+
+    document.body.addEventListener('click', function (event) {
+        if (event.target && event.target.classList.contains('add-to-cart-btn')) {           
+
+            const productId = event.target.getAttribute('data-id');
+            const productPrice = event.target.getAttribute('data-price');
             fetch('/Card/AddToCart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8'
                 },
-                body: JSON.stringify({ id: productId, count: 1,  price: productPrice})
+                body: JSON.stringify({ id: productId, count: 1, price: productPrice })
             })
                 .then(response => response.json())
                 .then(data => {
-            
+
                     document.querySelector('.shop-cart sup').textContent = data.basketCount;
                     document.querySelector('.shop-cart a').textContent = `CART ($${data.totalPrice.toFixed(2)})`;
 
@@ -41,69 +44,94 @@
                     }
                 })
                 .catch(error => console.error('Error adding to cart:', error));
-        });
-    });
+        }
+    })
+
 
 
     let cartTable = document.getElementById('cart-table');
     let cartButtons = cartTable.querySelectorAll('button')
 
     cartButtons.forEach(button => {
-     
+
         button.addEventListener('click', event => {
 
             let iconArea = event.target.closest('tr')
             let input = iconArea.querySelector('input')
             let count = input.value
             let buttonIcon = event.target.closest('button')
+            let dataTotalPrice = iconArea.querySelector(`.productTotal`).getAttribute('data-TotalPrice')
 
-           
-            
+
+
 
             if (buttonIcon.classList.contains('btn-plus')) {
                 count++;
                 input.value = count;
                 const productId = buttonIcon.getAttribute('data-id');
-                updateProductQuantity(productId, 1);
-               
+           
+
+                updateProductQuantity(productId, count, dataTotalPrice)
+                    .then(productTotalPrice => {
+                        iconArea.querySelector(`.productTotal`).textContent = `$${productTotalPrice.toFixed(2)}`
+                    
+                    });
+
+
+
             } else if (buttonIcon.classList.contains('btn-minus') & count > 1) {
                 count--;
                 input.value = count;
                 const productId = buttonIcon.getAttribute('data-id');
-                updateProductQuantity(productId, -1);
-             
+                updateProductQuantity(productId, count, dataTotalPrice)
+                    .then(productTotalPrice => {
+                        iconArea.querySelector(`.productTotal`).textContent = `$${productTotalPrice.toFixed(2)}`
+                     
+                    });
+
             } else if (buttonIcon.classList.contains('btn-remove')) {
 
                 const productId = buttonIcon.getAttribute('data-id');
 
                 deleteProductFromBasket(productId);
                 iconArea.remove();
-             
+
             }
         });
     })
-   
 
-    function updateProductQuantity(productId, quantityChange) {
-        fetch('/Card/UpdateProductQuantity', {
+
+
+
+    function updateProductQuantity(productId, quantityChange, dataTotalPrice) {
+        return fetch('/Card/UpdateProductQuantity', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             },
-            body: JSON.stringify({ id: productId, count: quantityChange })
+            body: JSON.stringify({ id: productId, count: quantityChange, price: dataTotalPrice })
         })
             .then(response => response.json())
             .then(data => {
-          
                 if (window.location.pathname === '/Card/Index') {
                     updateCartPage();
                 }
 
                 document.querySelector('.shop-cart sup').textContent = data.basketCount;
                 document.querySelector('.shop-cart a').textContent = `CART ($${data.totalPrice.toFixed(2)})`;
+                document.querySelector('.cartTotalPrice').textContent = `$${data.totalPrice.toFixed(2)}`;
+
+             
+                return data.productTotalPrice;
             })
-            .catch(error => console.error('Error updating product quantity:', error));
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
+
+
+
+
 
     function deleteProductFromBasket(productId) {
         fetch('/Card/DeleteProductFromBasket', {
@@ -122,6 +150,7 @@
 
                 document.querySelector('.shop-cart sup').textContent = data.basketCount;
                 document.querySelector('.shop-cart a').textContent = `CART ($${data.totalPrice.toFixed(2)})`;
+                document.querySelector('.cartTotalPrice').textContent = `$${data.totalPrice.toFixed(2)}`;
             })
             .catch(error => console.error('Error deleting product from basket:', error));
     }
